@@ -2,7 +2,7 @@
 <h1 style="text-align:center">EA DEMO API ANGULAR</h1>
 
 <!-- Le ponemos nombre al formulario y cuando se envié que lance un método -->
-<form #usuarioForm="ngForm" style="text-align:center" (ngSubmit)="onSubmit()" class="col-md-4">
+<form ngNativeValidate #usuarioForm="ngForm" style="text-align:center" (ngSubmit)="onSubmit()" class="col-md-4">
   <p>
     <label>Nombre:</label>
 
@@ -10,33 +10,42 @@
     <input class="form-control" type="text" #nombre="ngModel" ngControl="nombre" name="nombre" [(ngModel)]="usuario.nombre" required minlength="4" />
 
     <!-- Comprobamos si el campo está modificado y es válido para mostrar un mensaje -->
-    <span *ngIf="!nombre.valid && nombre.touched">El nombre es obligatorio</span>
+    <!--<span *ngIf="!nombre.valid && nombre.touched">El nombre es obligatorio</span>-->
   </p>
   <p>
     <label>Apellidos:</label>
     <input class="form-control" type="text" #apellidos="ngModel" ngControl="apellidos" name="apellidos"[(ngModel)]="usuario.apellidos" required pattern="[A-Za-z]*"/>
-    <span *ngIf="!apellidos.valid && apellidos.touched">Los apellidos son obligatorios</span>
+    <!-- <span *ngIf="!apellidos.valid && apellidos.touched">Los apellidos son obligatorios</span>-->
+   </p>
+   <p>
+     <label>Email:</label>
+     <input class="form-control" type="email" #email="ngModel" ngControl="email" name="email" [(ngModel)]="usuario.email" required/>
+     <!--<span *ngIf="!email.valid && email.touched">El email es obligatorio</span>-->
+   </p>
+   <p>
+     <label>Contraseña:</label>
+     <input class="form-control" type="password" #password="ngModel" ngControl="password" name="password"[(ngModel)]="usuario.password" required />
+     <!-- <span *ngIf="!password.valid && password.touched">La contraseña es obligatorio</span>-->
+    </p>
+    <input type="submit" value="Añadir Usuario" class="btn btn-success" />
+  </form>
+
+  <br><br><br>
+  <form ngNativeValidate #eliminarForm="ngForm" style="text-align:center" (ngSubmit)="onSubmit2()" class="col-md-4">
+    <p>
+      <label>Nombre:</label>
+      <!-- le ponemos nombre a este input, con ngControl hacemos un control de la validación, hacemos un two way databinding con ngModel y definimos unas reglas de validación html5-->
+    <input class="form-control" type="text" #nombre="ngModel" ngControl="nombre" name="nombre" [(ngModel)]="usuario.nombre" required minlength="4"/>
+    <input type="submit" value="Eliminar Usuario" class="btn btn-success" />
   </p>
-  <p>
-    <label>Email:</label>
-    <input class="form-control" type="email" #email="ngModel" ngControl="email" name="email" [(ngModel)]="usuario.email" required/>
-    <span *ngIf="!email.valid && email.touched">El email es obligatorio</span>
-  </p>
-  <p>
-    <label>Contraseña:</label>
-    <input class="form-control" type="password" #password="ngModel" ngControl="password" name="password"[(ngModel)]="usuario.password" required />
-    <span *ngIf="!password.valid && password.touched">La contraseña es obligatorio</span>
-  </p>
-  <input type="submit" value="Añadir Usuario" class="btn btn-success" />
 </form>
 
 <br><br><br>
-<form #eliminarForm="ngForm" style="text-align:center" (ngSubmit)="onSubmit2()" class="col-md-4">
+<form ngNativeValidate #eliminartodosForm="ngForm" style="text-align:center" (ngSubmit)="onSubmit3()" class="col-md-4">
   <p>
-    <label>Nombre:</label>
+    <label>Eliminar todos los usuarios:</label>
     <!-- le ponemos nombre a este input, con ngControl hacemos un control de la validación, hacemos un two way databinding con ngModel y definimos unas reglas de validación html5-->
-    <input class="form-control" type="text" #nombre="ngModel" ngControl="nombre" name="nombre" [(ngModel)]="usuario.nombre" required minlength="4" />
-    <input type="submit" value="Eliminar Usuario" class="btn btn-success" />
+     <input type="submit" value="Eliminar Usuarios" class="btn btn-success" />
   </p>
 </form>
 
@@ -47,10 +56,10 @@
   <ng-container *ngFor= "let user of data; let i = index">
 
     <div>
-      <div><b>Contador:</b> {{i}}</div>
+    <div><b>Contador:</b> {{i}}</div>
     <div><b>Nombre</b>: {{user.nombre}}</div>
-    <div><b>Apellidos:</b> {{user.apellidos}}</div>
-    <div><b>Email:</b>{{user.email}}</div>
+    <div><b>Apellido:</b> {{user.apellidos}}</div>
+    <div><b>Email: </b>{{user.email}}</div>
     <div><b>Password:</b> {{user.password}}</div>
     <br>
     </div>

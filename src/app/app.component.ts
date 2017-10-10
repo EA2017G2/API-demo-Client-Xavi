@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 export class AppComponent {
 
   private apiUrl = 'http://localhost:8080/api/usuarios'; // para que solo se pueda llamar desde este appcomponent
-
+  private apiUrl2 = 'http://localhost:8080/api/delete/usuarios'; // para que solo se pueda llamar desde este appcomponent
   data: {
     nombre
     // puedo poner lo que sea porque lo recoje de date y lo mete aqui
@@ -28,13 +28,19 @@ export class AppComponent {
     // Mostramos el objeto usuario
     console.log(this.usuario);
     this.postUsers(); // ejecuto el post cuando hago click
-    window.location.reload();
+    // window.location.reload();
   }
   onSubmit2() {
     // Mostramos el objeto usuario
-    console.log(this.usuario);
+    console.log(this.usuario.nombre);
     this.deleteUsers();
-    //window.location.reload();
+
+    // window.location.reload();
+  }
+  onSubmit3() {
+    // Mostramos el objeto usuario
+    this.deleteAllUsers();
+    // window.location.reload();
   }
 
   constructor (private http: Http) {
@@ -58,7 +64,11 @@ export class AppComponent {
   }
 
   deleteDataRequest() {
-    return this.http.delete(this.apiUrl, this.usuario);
+    return this.http.delete(this.apiUrl2 + '/' + this.usuario.nombre);
+  }
+
+  deleteAllDataRequest() {
+    return this.http.delete(this.apiUrl2);
   }
 
   getUsers() {
@@ -75,6 +85,10 @@ export class AppComponent {
 
   deleteUsers() {
     this.deleteDataRequest().subscribe();
+  }
+
+  deleteAllUsers() {
+    this.deleteAllDataRequest().subscribe();
   }
 
 }
